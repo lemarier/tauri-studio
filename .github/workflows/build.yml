@@ -84,4 +84,4 @@ jobs:
         if: matrix.platform == 'macos-latest'
         with:
           name: macos-artifacts
-          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio_*.app
+          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio.app
