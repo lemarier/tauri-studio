@@ -18,5 +18,5 @@ build:
 
 .PHONY: fmt
 fmt: 
-	$(CARGO) fmt --all
+	$(CARGO) fmt --all --manifest-path=./src-tauri/Cargo.toml
 	cd $(APP_SRC_PATH) && yarn lint --fix
