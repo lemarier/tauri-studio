@@ -1,0 +1,60 @@
+name: test artifacts
+on: push
+
+jobs:
+  build-artifacs:
+    runs-on: ${{ matrix.platform }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "studio"
+      - uses: actions/checkout@v2
+        with:
+          repository: "tauri-apps/tauri"
+          path: "tauri"
+      - name: install stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - run: cargo install --path ./tooling/cli.rs --force
+      - name: install cli deps via yarn
+        working-directory: ./tauri/tooling/cli.js
+        run: yarn
+      - name: build cli
+        working-directory: ./tauri/tooling/cli.js
+        run: yarn build
+      - name: build sample artifacts (updater)
+        working-directory: ./studio
+        run: |
+          make build
+        env:
+          TAURI_JS_PATH: ../../tauri/tooling/cli.js/bin/tauri
+          TAURI_PRIVATE_KEY: dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5YTBGV3JiTy9lRDZVd3NkL0RoQ1htZmExNDd3RmJaNmRMT1ZGVjczWTBKZ0FBQkFBQUFBQUFBQUFBQUlBQUFBQWdMekUzVkE4K0tWQ1hjeGt1Vkx2QnRUR3pzQjVuV0ZpM2czWXNkRm9hVUxrVnB6TUN3K1NheHJMREhQbUVWVFZRK3NIL1VsMDBHNW5ET1EzQno0UStSb21nRW4vZlpTaXIwZFh5ZmRlL1lSN0dKcHdyOUVPclVvdzFhVkxDVnZrbHM2T1o4Tk1NWEU9Cg==
+      - uses: actions/upload-artifact@v2
+        if: matrix.platform == 'ubuntu-latest'
+        with:
+          name: linux-artifacts
+          path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio_*.AppImage.*
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.platform == 'windows-latest'
+        with:
+          name: windows-artifacts
+          path: ./studio/src-tauri/target/release/bundle/msi/*
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.platform == 'macos-latest'
+        with:
+          name: macos-artifacts
+          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio_*.app.tar.*

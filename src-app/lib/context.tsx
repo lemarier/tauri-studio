@@ -1,0 +1,159 @@
+import {FC, useMemo, useReducer, useContext, createContext} from 'react';
+
+import {TauriProject, EditorId, ProjectState, Config} from './types';
+
+const initialState: AppState = {
+  logs: [],
+};
+
+type TauriContext = {
+  addLog: (value: string) => void;
+  setConfig: (config: Config) => void;
+  setProject: (project: TauriProject) => void;
+  setProjectState: (state: ProjectState) => void;
+  closeProject: () => void;
+  setEditorValue: (editor: EditorId, value: string) => void;
+} & AppState;
+
+interface AppState {
+  config?: Config;
+  project?: TauriProject;
+  logs: string[];
+}
+
+type Action =
+  | {
+      type: 'SET_PROJECT';
+      project: TauriProject;
+    }
+  | {
+      type: 'SET_CONFIG';
+      config: Config;
+    }
+  | {
+      type: 'SET_PROJECT_STATE';
+      state: ProjectState;
+    }
+  | {
+      type: 'CLOSE_PROJECT';
+    }
+  | {
+      type: 'ADD_LOG';
+      value: string;
+    }
+  | {
+      type: 'SET_EDITOR_VALUE';
+      editor: EditorId;
+      value: string;
+    };
+
+function reducer(state: AppState, action: Action) {
+  switch (action.type) {
+    case 'SET_PROJECT': {
+      return {
+        ...state,
+        project: action.project,
+      };
+    }
+    case 'SET_CONFIG': {
+      return {
+        ...state,
+        config: action.config,
+      };
+    }
+    case 'SET_PROJECT_STATE': {
+      state.project.state = action.state;
+      return {
+        ...state,
+      };
+    }
+    case 'CLOSE_PROJECT': {
+      delete state.project;
+      return {
+        ...state,
+      };
+    }
+    case 'ADD_LOG': {
+      state.logs.push(action.value);
+      return {
+        ...state,
+      };
+    }
+    case 'SET_EDITOR_VALUE': {
+      state.project.editors[action.editor] = action.value;
+      return state;
+    }
+    default:
+      return state;
+  }
+}
+
+export const Context = createContext<AppState>(initialState);
+
+Context.displayName = 'TauriBuilderContext';
+
+export const Provider: FC = (props) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const setProject = useMemo(() => {
+    return (project: TauriProject) => dispatch({type: 'SET_PROJECT', project});
+  }, []);
+
+  const setConfig = useMemo(() => {
+    return (config: Config) => dispatch({type: 'SET_CONFIG', config});
+  }, []);
+
+  const setProjectState = useMemo(() => {
+    return (state: ProjectState) =>
+      dispatch({type: 'SET_PROJECT_STATE', state});
+  }, []);
+
+  const setEditorValue = useMemo(() => {
+    return (editor: EditorId, value: string) =>
+      dispatch({type: 'SET_EDITOR_VALUE', editor, value});
+  }, []);
+
+  const addLog = useMemo(() => {
+    return (value: string) => dispatch({type: 'ADD_LOG', value});
+  }, []);
+
+  const closeProject = useMemo(() => {
+    return () => dispatch({type: 'CLOSE_PROJECT'});
+  }, []);
+
+  // we update when our state change
+  const value = useMemo(
+    () => ({
+      ...state,
+      addLog,
+      setConfig,
+      setProject,
+      setProjectState,
+      closeProject,
+      setEditorValue,
+    }),
+    [
+      addLog,
+      setProject,
+      setConfig,
+      setProjectState,
+      setEditorValue,
+      closeProject,
+      state,
+    ],
+  );
+
+  return <Context.Provider value={value} {...props} />;
+};
+
+export const useTauriContext = () => {
+  const context = useContext(Context);
+  if (context === undefined) {
+    throw new Error(`useTauriContext must be used within a Provider`);
+  }
+  return context as TauriContext;
+};
+
+export const ManagedContext: FC = ({children}) => {
+  return <Provider>{children}</Provider>;
+};

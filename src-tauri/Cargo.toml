@@ -1,0 +1,25 @@
+[package]
+name = "tauri-studio"
+version = "0.1.0"
+description = "A very simple Tauri Editor built with Tauri."
+edition = "2018"
+
+[build-dependencies]
+tauri-build = { git = "https://github.com/tauri-apps/tauri.git", branch="dev", features = [ "codegen" ]}
+
+[dependencies]
+tempdir = "0.3"
+include_dir = "0.6.0"
+serde_json = "1.0"
+serde = { version = "1.0", features = [ "derive" ] }
+tauri = { git = "https://github.com/tauri-apps/tauri.git", branch="dev", features =["api-all"]}
+glob = "0.3.0"
+which = "4.1.0"
+
+[features]
+default = [ "custom-protocol" ]
+custom-protocol = [ "tauri/custom-protocol" ]
+
+[[bin]]
+name = "tauri-builder"
+path = "src/main.rs"
