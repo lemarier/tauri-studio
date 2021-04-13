@@ -3,7 +3,7 @@
     "distDir": "../src-app/out",
     "devPath": "http://localhost:3000",
     "beforeDevCommand": "",
-    "beforeBuildCommand": "cd ./src-app && yarn && yarn build"
+    "beforeBuildCommand": ""
   },
   "tauri": {
     "bundle": {
