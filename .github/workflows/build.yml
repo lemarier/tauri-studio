@@ -54,10 +54,10 @@ jobs:
           yarn
           yarn build
           yarn link
-      - name: link API to our frontend as its not published
+      - name: link API.js to our frontend as its not published
         working-directory: ./studio/src-app
         run: |
-          yarn link @tauri-apps/api
+          yarn link "@tauri-apps/api"
       - name: build artifacts
         working-directory: ./studio
         run: |
