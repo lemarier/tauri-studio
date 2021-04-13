@@ -68,8 +68,13 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'ubuntu-latest'
         with:
-          name: linux-artifacts
-          path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio_*.AppImage.*
+          name: linux-artifacts-appimage
+          path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio_*.AppImage
+      - uses: actions/upload-artifact@v2
+        if: matrix.platform == 'ubuntu-latest'
+        with:
+          name: linux-artifacts-deb
+          path: ./studio/src-tauri/target/release/bundle/deb/tauri-studio_*.deb
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'windows-latest'
         with:
@@ -79,4 +84,4 @@ jobs:
         if: matrix.platform == 'macos-latest'
         with:
           name: macos-artifacts
-          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio_*.app.tar.*
+          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio_*.app
