@@ -21,5 +21,5 @@ default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
 
 [[bin]]
-name = "tauri-builder"
+name = "tauri-studio"
 path = "src/main.rs"
