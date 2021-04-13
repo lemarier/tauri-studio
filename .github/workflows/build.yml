@@ -43,12 +43,21 @@ jobs:
           path: target
           key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
       - run: cargo install --path ./tauri/tooling/cli.rs --force
-      - name: install cli deps via yarn
+      - name: build CLI.js
         working-directory: ./tauri/tooling/cli.js
-        run: yarn
-      - name: build cli
-        working-directory: ./tauri/tooling/cli.js
-        run: yarn build
+        run: |
+          yarn
+          yarn build
+      - name: build API.js
+        working-directory: ./tauri/tooling/api
+        run: |
+          yarn
+          yarn build
+          yarn link
+      - name: link API to our frontend as its not published
+        working-directory: ./studio/src-app
+        run: |
+          yarn link @tauri-apps/api
       - name: build artifacts
         working-directory: ./studio
         run: |
@@ -61,13 +70,11 @@ jobs:
         with:
           name: linux-artifacts
           path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio_*.AppImage.*
-
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'windows-latest'
         with:
           name: windows-artifacts
           path: ./studio/src-tauri/target/release/bundle/msi/*
-
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'macos-latest'
         with:
