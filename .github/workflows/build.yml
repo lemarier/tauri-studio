@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y webkit2gtk-4.0
-      - run: cargo install --path ./tooling/cli.rs --force
+      - run: cargo install --path ./tauri/tooling/cli.rs --force
       - name: install cli deps via yarn
         working-directory: ./tauri/tooling/cli.js
         run: yarn
