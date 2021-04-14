@@ -65,23 +65,40 @@ jobs:
         env:
           TAURI_JS_PATH: ../tauri/tooling/cli.js/bin/tauri
           TAURI_PRIVATE_KEY: dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5YTBGV3JiTy9lRDZVd3NkL0RoQ1htZmExNDd3RmJaNmRMT1ZGVjczWTBKZ0FBQkFBQUFBQUFBQUFBQUlBQUFBQWdMekUzVkE4K0tWQ1hjeGt1Vkx2QnRUR3pzQjVuV0ZpM2czWXNkRm9hVUxrVnB6TUN3K1NheHJMREhQbUVWVFZRK3NIL1VsMDBHNW5ET1EzQno0UStSb21nRW4vZlpTaXIwZFh5ZmRlL1lSN0dKcHdyOUVPclVvdzFhVkxDVnZrbHM2T1o4Tk1NWEU9Cg==
+      - name: Pre-release (linux)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          cd ./studio/src-tauri/target/release/bundle/appimage/
+          chmod a+x ./tauri-studio_*.AppImage
+          zip -r tauri-studio-x86_64-linux-appimage.zip tauri-studio_*.AppImage
+          cd ../deb
+          zip -r tauri-studio-x86_64-linux-deb.zip tauri-studio_*.deb
+      - name: Pre-release (mac)
+        if: matrix.platform == 'macos-latest'
+        run: |
+          cd ./studio/src-tauri/target/release/bundle/macos
+          zip -r tauri-studio-x86_64-darwin.zip tauri-studio.app
+      - name: Pre-release (windows)
+        if: matrix.platform == 'windows-2019'
+        run: |
+          Compress-Archive -CompressionLevel Optimal -Force -Path studio/src-tauri/target/release/bundle/msi/* -DestinationPath studio/src-tauri/target/release/tauri-studio-x86_64-windows-msi.zip
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'ubuntu-latest'
         with:
           name: linux-artifacts-appimage
-          path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio_*.AppImage
+          path: ./studio/src-tauri/target/release/bundle/appimage/tauri-studio-x86_64-linux-appimage.zip
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'ubuntu-latest'
         with:
           name: linux-artifacts-deb
-          path: ./studio/src-tauri/target/release/bundle/deb/tauri-studio_*.deb
+          path: ./studio/src-tauri/target/release/bundle/deb/tauri-studio-x86_64-linux-deb.zip
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'windows-latest'
         with:
           name: windows-artifacts
-          path: ./studio/src-tauri/target/release/bundle/msi/*
+          path: ./studio/src-tauri/target/release/tauri-studio-x86_64-windows-msi.zip
       - uses: actions/upload-artifact@v2
         if: matrix.platform == 'macos-latest'
         with:
           name: macos-artifacts
-          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio.app
+          path: ./studio/src-tauri/target/release/bundle/macos/tauri-studio-x86_64-darwin.zip
