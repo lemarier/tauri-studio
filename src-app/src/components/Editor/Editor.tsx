@@ -1,5 +1,5 @@
 import React from "react";
-import MonacoEditor from "@monaco-editor/react";
+import MonacoEditor from "./Core";
 
 import { EditorLanguage, EditorId } from "../../lib/types";
 import { useTauriContext } from "../../lib/context";
@@ -23,14 +23,13 @@ const Editor = ({
         <MonacoEditor
           className="h-full w-full"
           theme="vs-dark"
-          keepCurrentModel={false}
           options={{
             contextmenu: false,
             minimap: { enabled: false },
             wordWrap: "on",
           }}
-          defaultValue={value}
-          defaultLanguage={language}
+          value={value}
+          language={language}
           onChange={(value) => {
             if (value) {
               setEditorValue(editorId, value);
