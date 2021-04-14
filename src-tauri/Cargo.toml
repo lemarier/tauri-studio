@@ -16,6 +16,10 @@ tauri = { git = "https://github.com/tauri-apps/tauri.git", branch="dev", feature
 glob = "0.3.0"
 which = "4.1.0"
 
+[profile.release.package.wry]
+debug = true
+debug-assertions = true
+
 [features]
 default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
