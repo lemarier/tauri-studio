@@ -4,7 +4,7 @@ use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::{Path, PathBuf};
-use tauri::{Error, Result};
+use tauri::Result;
 
 fn copy_recursively(source: &Dir, destination: &PathBuf) -> Result<()> {
     for directory in source.dirs() {

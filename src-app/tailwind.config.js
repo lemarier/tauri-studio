@@ -1,14 +1,9 @@
 module.exports = {
-  mode: 'jit',
   purge: {
-    enabled: false,
-    content: [
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-    ],
+    enabled: true,
+    content: ["./index.html", "./src/**/*.{ts,tsx}"],
   },
   darkMode: false,
-  whitelistPatternsChildren: [/monaco-editor/],
   theme: {
     extend: {},
   },
