@@ -2943,7 +2943,7 @@ dependencies = [
 [[package]]
 name = "tauri"
 version = "1.0.0-beta-rc.0"
-source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#fa99fda0cf57bdd55efdc1cb9736d6e6dccc00b6"
+source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#7d8eb5effbca6e7f1dfaed6519c3be2b72066ef0"
 dependencies = [
  "base64",
  "bytes",
@@ -2983,7 +2983,7 @@ dependencies = [
 [[package]]
 name = "tauri-build"
 version = "1.0.0-beta-rc.0"
-source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#fa99fda0cf57bdd55efdc1cb9736d6e6dccc00b6"
+source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#7d8eb5effbca6e7f1dfaed6519c3be2b72066ef0"
 dependencies = [
  "anyhow",
  "proc-macro2",
@@ -2995,7 +2995,7 @@ dependencies = [
 [[package]]
 name = "tauri-codegen"
 version = "1.0.0-beta-rc.0"
-source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#fa99fda0cf57bdd55efdc1cb9736d6e6dccc00b6"
+source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#7d8eb5effbca6e7f1dfaed6519c3be2b72066ef0"
 dependencies = [
  "blake3",
  "proc-macro2",
@@ -3038,7 +3038,7 @@ dependencies = [
 [[package]]
 name = "tauri-macros"
 version = "1.0.0-beta-rc.0"
-source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#fa99fda0cf57bdd55efdc1cb9736d6e6dccc00b6"
+source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#7d8eb5effbca6e7f1dfaed6519c3be2b72066ef0"
 dependencies = [
  "proc-macro2",
  "quote 1.0.9",
@@ -3063,7 +3063,7 @@ dependencies = [
 [[package]]
 name = "tauri-utils"
 version = "1.0.0-beta-rc.0"
-source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#fa99fda0cf57bdd55efdc1cb9736d6e6dccc00b6"
+source = "git+https://github.com/tauri-apps/tauri.git?branch=dev#7d8eb5effbca6e7f1dfaed6519c3be2b72066ef0"
 dependencies = [
  "phf",
  "proc-macro2",
