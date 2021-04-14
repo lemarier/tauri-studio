@@ -6,7 +6,7 @@ import { ProjectState } from "../../lib/types";
 
 const Header: FC = () => {
   const { project, addLog } = useTauriContext();
-  const { run, stop } = useProject();
+  const { build, run, stop } = useProject();
 
   const buttonMarkup = useMemo(() => {
     if (!project?.state) {
@@ -18,11 +18,17 @@ const Header: FC = () => {
         return (
           <button
             type="button"
-            onClick={async () => {
+            onClick={async (event) => {
+              event.preventDefault();
               try {
+                // we split that into 2 process so we can start building on
+                // first init
+                await build();
                 await run();
               } catch (error) {
-                addLog(error.toString());
+                if (error) {
+                  addLog(error.toString());
+                }
               }
             }}
             className="inline-flex items-center px-2.5 py-1.5 border border-gray-900 shadow-sm text-xs font-medium rounded-sm text-gray-700 bg-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
@@ -122,7 +128,7 @@ const Header: FC = () => {
   }, [run, project?.state, addLog, stop]);
 
   return (
-    <div className="w-full h-auto flex items-center p-4 border-b border-gray-700">
+    <div className="relative z-10 flex-shrink-0 flex h-12 p-2 border-b border-gray-700">
       {buttonMarkup}
     </div>
   );

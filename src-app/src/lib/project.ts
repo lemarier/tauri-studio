@@ -56,20 +56,76 @@ export const useProject = () => {
       if (!config || !project) {
         return;
       }
+
+      addLog("Running project");
+
       // mark the project as running
       setProjectState(ProjectState.Running);
 
       const command = new Command(config.cargoPath, [
         "run",
-        "--release",
         "--manifest-path",
         project.mainCargoFile,
       ]);
 
       command.on("close", () => {
-        setProjectState(ProjectState.Ready);
         addLog("App closed");
-        resolve();
+        setProjectState(ProjectState.Ready);
+        return resolve();
+      });
+
+      command.on("error", (error: Error) => {
+        addLog(error.toString());
+        setProjectState(ProjectState.Ready);
+        return reject();
+      });
+
+      command.stdout.on("data", (line: string) => {
+        addLog(line);
+      });
+
+      command.stderr.on("data", (line: string) => {
+        addLog(line);
+      });
+
+      command
+        .spawn()
+        .then((child: Child) => {
+          setChild(child);
+        })
+        .catch((error: Error) => {
+          reject(error.toString());
+        });
+    });
+  }, [addLog, setChild, project, setProjectState, config?.cargoPath]);
+
+  const build = useCallback(() => {
+    return new Promise<void>((resolve, reject) => {
+      if (!config || !project) {
+        return;
+      }
+
+      addLog("Building project");
+
+      // mark the project as running
+      setProjectState(ProjectState.Building);
+
+      const command = new Command(config.cargoPath, [
+        "build",
+        "--manifest-path",
+        project.mainCargoFile,
+      ]);
+
+      command.on("close", ({ signal = 0 }: { signal: Number }) => {
+        setProjectState(ProjectState.Ready);
+
+        // SIGKILL
+        // closed manually
+        if (signal === 9) {
+          return reject("Build cancelled");
+        }
+
+        return resolve();
       });
 
       command.on("error", (error: Error) => {
@@ -105,6 +161,7 @@ export const useProject = () => {
   }, [child, setProjectState]);
 
   return {
+    build,
     run,
     stop,
     saveEditorValuesOnDisk,

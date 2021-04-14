@@ -1,5 +1,4 @@
 import React from "react";
-// @ts-ignore
 import MonacoEditor from "@monaco-editor/react";
 
 import { EditorLanguage, EditorId } from "../../lib/types";

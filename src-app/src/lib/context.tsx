@@ -95,9 +95,10 @@ function reducer(state: AppState, action: Action) {
       };
     }
     case "ADD_LOG": {
-      state.logs.push(action.value);
       return {
         ...state,
+        // keep only latest 100 elements in our logs
+        logs: [...state.logs.slice(-100), action.value],
       };
     }
     case "SET_EDITOR_VALUE": {

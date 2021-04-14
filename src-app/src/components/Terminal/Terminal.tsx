@@ -1,12 +1,17 @@
-import React, { FC, useEffect } from "react";
-// @ts-ignore
-import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
+import React, { FC, useEffect, useRef } from "react";
 
 import { useTauriContext } from "../../lib/context";
 
 const Terminal: FC = () => {
   const { logs } = useTauriContext();
-  const scrollToBottom = useScrollToBottom();
+  const messagesEndRef: any = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scroll({
+      behavior: "smooth",
+      top: messagesEndRef.current?.scrollHeight,
+    });
+  };
 
   // scroll to bottom when we got a new log
   useEffect(() => {
@@ -14,7 +19,10 @@ const Terminal: FC = () => {
   }, [logs, scrollToBottom]);
 
   return (
-    <ScrollToBottom className="w-full h-full overflow-y-auto border-t border-gray-700 px-5 pt-4 text-gray-100 text-sm font-mono subpixel-antialiased bg-gray-800 pb-20 pt-4 leading-normal overflow-hidden">
+    <div
+      className="w-full h-full overflow-y-auto border-t border-gray-700 px-5 pt-4 text-gray-100 text-sm font-mono subpixel-antialiased bg-gray-800 pb-4 pt-4 leading-normal overflow-hidden"
+      ref={messagesEndRef}
+    >
       {logs.map((log, key) => {
         const logKey = `log-${key}`;
         return (
@@ -24,7 +32,7 @@ const Terminal: FC = () => {
           </div>
         );
       })}
-    </ScrollToBottom>
+    </div>
   );
 };
 

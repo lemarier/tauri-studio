@@ -32,19 +32,21 @@ const EditorsPage = () => {
   }, [addLog, loadBundledProject]);
 
   return (
-    <div className="h-screen w-full overflow-hidden">
-      <Header />
-      <div className="relative h-full">
-        <SplitPane
-          minSize={150}
-          maxSize={400}
-          split="horizontal"
-          defaultSize={200}
-          primary="second"
-        >
-          <Editors editors={project?.editors} />
-          <Terminal />
-        </SplitPane>
+    <div className="h-screen flex overflow-hidden">
+      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+        <Header />
+        <div className="relative h-full">
+          <SplitPane
+            minSize={150}
+            maxSize={400}
+            split="horizontal"
+            defaultSize={200}
+            primary="second"
+          >
+            <Editors editors={project?.editors} />
+            <Terminal />
+          </SplitPane>
+        </div>
       </div>
     </div>
   );
