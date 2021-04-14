@@ -79,7 +79,7 @@ jobs:
           cd ./studio/src-tauri/target/release/bundle/macos
           zip -r tauri-studio-x86_64-darwin.zip tauri-studio.app
       - name: Pre-release (windows)
-        if: matrix.platform == 'windows-2019'
+        if: matrix.platform == 'windows-latest'
         run: |
           Compress-Archive -CompressionLevel Optimal -Force -Path studio/src-tauri/target/release/bundle/msi/* -DestinationPath studio/src-tauri/target/release/tauri-studio-x86_64-windows-msi.zip
       - uses: actions/upload-artifact@v2
