@@ -12,6 +12,10 @@ serde_json = "1.0"
 serde = { version = "1.0", features = [ "derive" ] }
 tauri = { git = "https://github.com/tauri-apps/tauri.git", branch="dev", features =["api-all"]}
 
+[profile.release.package.wry]
+debug = true
+debug-assertions = true
+
 [features]
 default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
