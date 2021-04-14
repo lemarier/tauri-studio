@@ -6,7 +6,7 @@ import { ProjectState } from "../../lib/types";
 
 const Header: FC = () => {
   const { project, addLog } = useTauriContext();
-  const { build, run, stop } = useProject();
+  const { build, run, stop, saveEditorValuesOnDisk } = useProject();
 
   const buttonMarkup = useMemo(() => {
     if (!project?.state) {
@@ -21,6 +21,7 @@ const Header: FC = () => {
             onClick={async (event) => {
               event.preventDefault();
               try {
+                await saveEditorValuesOnDisk();
                 // we split that into 2 process so we can start building on
                 // first init
                 await build();
