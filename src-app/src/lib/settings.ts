@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-
+// @ts-ignore
 import { readTextFile, writeFile, Dir } from "@tauri-apps/api/fs";
 
 import { Config } from "./types";

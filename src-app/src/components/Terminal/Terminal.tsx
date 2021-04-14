@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from "react";
+// @ts-ignore
 import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
 
 import { useTauriContext } from "../../lib/context";

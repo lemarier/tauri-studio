@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-
+// @ts-ignore
 import { invoke } from "@tauri-apps/api/tauri";
 
 export const useSetup = () => {

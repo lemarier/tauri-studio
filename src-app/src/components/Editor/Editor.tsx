@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import MonacoEditor from "@monaco-editor/react";
 
 import { EditorLanguage, EditorId } from "../../lib/types";
@@ -32,7 +33,9 @@ const Editor = ({
           defaultValue={value}
           defaultLanguage={language}
           onChange={(value) => {
-            setEditorValue(editorId, value);
+            if (value) {
+              setEditorValue(editorId, value);
+            }
           }}
         />
       </div>

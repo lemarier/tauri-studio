@@ -1,7 +1,9 @@
 import { useCallback, useState } from "react";
-
+// @ts-ignore
 import { invoke } from "@tauri-apps/api/tauri";
+// @ts-ignore
 import { readTextFile, writeFile } from "@tauri-apps/api/fs";
+// @ts-ignore
 import { Command, Child } from "@tauri-apps/api/shell";
 
 import { useTauriContext } from "./context";
@@ -18,6 +20,10 @@ export const useProject = () => {
   } = useTauriContext();
 
   const saveEditorValuesOnDisk = useCallback(async () => {
+    if (!project) {
+      return;
+    }
+
     // we got out project path
     await writeFile({
       path: project.mainHtmlFile,
@@ -47,6 +53,9 @@ export const useProject = () => {
 
   const run = useCallback(() => {
     return new Promise<void>((resolve, reject) => {
+      if (!config || !project) {
+        return;
+      }
       // mark the project as running
       setProjectState(ProjectState.Running);
 
@@ -63,26 +72,26 @@ export const useProject = () => {
         resolve();
       });
 
-      command.on("error", (error) => {
+      command.on("error", (error: Error) => {
         addLog(error.toString());
         setProjectState(ProjectState.Ready);
         return reject();
       });
 
-      command.stdout.on("data", (line) => {
+      command.stdout.on("data", (line: string) => {
         addLog(line);
       });
 
-      command.stderr.on("data", (line) => {
+      command.stderr.on("data", (line: string) => {
         addLog(line);
       });
 
       command
         .spawn()
-        .then((pid) => {
-          setChild(pid);
+        .then((child: Child) => {
+          setChild(child);
         })
-        .catch((error) => {
+        .catch((error: Error) => {
           reject(error.toString());
         });
     });
