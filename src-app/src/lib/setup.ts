@@ -1,9 +1,9 @@
 import {useCallback} from 'react';
-import {invoke} from '@tauri-apps/api/tauri';
+import {invoke} from '@tauri-apps/api/dist/tauri';
 
 export const useSetup = () => {
   const whichBinary = useCallback(async (binary: string) => {
-    const binaryPath: string = await invoke<string | null>(
+    const binaryPath = await invoke<string | null>(
       'check_if_binary_is_available',
       {
         binary,

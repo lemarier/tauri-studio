@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react';
-import {invoke} from '@tauri-apps/api/tauri';
-import {readTextFile, writeFile} from '@tauri-apps/api/fs';
-import {Command, Child} from '@tauri-apps/api/shell';
+import {readTextFile, writeFile} from '@tauri-apps/api/dist/fs';
+import {Command, Child} from '@tauri-apps/api/dist/shell';
+import {invoke} from '@tauri-apps/api/dist/tauri';
 
 import {useTauriContext} from './context';
 import {TauriProject, ProjectState} from './types';
@@ -113,7 +113,7 @@ export const useProject = () => {
         project.mainCargoFile,
       ]);
 
-      command.on('close', ({signal = 0}: {signal: number;}) => {
+      command.on('close', ({signal = 0}: {signal: number}) => {
         setProjectState(ProjectState.Ready);
 
         // SIGKILL

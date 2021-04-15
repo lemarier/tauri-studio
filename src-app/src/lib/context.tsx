@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  useMemo,
-  useReducer,
-  useContext,
-  createContext,
-} from 'react';
+import React, {FC, useMemo, useReducer, useContext, createContext} from 'react';
 
 import {TauriProject, EditorId, ProjectState, Config, AppView} from './types';
 
@@ -120,8 +114,7 @@ export const Provider: FC = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const setProject = useMemo(() => {
-    return (project: TauriProject) =>
-      dispatch({type: 'SET_PROJECT', project});
+    return (project: TauriProject) => dispatch({type: 'SET_PROJECT', project});
   }, []);
 
   const setConfig = useMemo(() => {

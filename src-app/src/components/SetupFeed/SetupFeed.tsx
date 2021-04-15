@@ -21,13 +21,13 @@ const ALL_REQUIREMENTS: Requirement[] = [
   },
 ];
 
-const PendingVerification = ({requirement}: {requirement: Requirement;}) => {
+const PendingVerification = ({requirement}: {requirement: Requirement}) => {
   return (
     <li>
       <div className="relative pb-8">
         <div className="relative flex space-x-3">
-          <div>
-            <span className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center ring-8 ring-gray-300">
+          <>
+            <div className="h-8 w-8 rounded-full bg-gray-800 flex items-center justify-center ring-8 ring-gray-300">
               <svg
                 className="h-5 w-5 text-white animate-spin"
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +49,10 @@ const PendingVerification = ({requirement}: {requirement: Requirement;}) => {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-            </span>
-          </div>
+            </div>
+          </>
           <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-            <div>
+            <div id={`${requirement.binaryName}_pending_text`}>
               <p className="text-md text-gray-500 pl-4">
                 Checking if {requirement.name} is installed...
               </p>
@@ -64,16 +64,12 @@ const PendingVerification = ({requirement}: {requirement: Requirement;}) => {
   );
 };
 
-const InstalledSuccessfully = ({
-  requirement,
-}: {
-  requirement: Requirement;
-}) => {
+const InstalledSuccessfully = ({requirement}: {requirement: Requirement}) => {
   return (
     <li>
       <div className="relative pb-8">
         <div className="relative flex space-x-3">
-          <div>
+          <>
             <span className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-gray-300">
               <svg
                 className="h-5 w-5 text-white"
@@ -88,13 +84,13 @@ const InstalledSuccessfully = ({
                 />
               </svg>
             </span>
-          </div>
+          </>
           <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-            <div>
+            <>
               <p className="text-md text-gray-500 pl-4">
                 {requirement.name} is installed successfully...
               </p>
-            </div>
+            </>
           </div>
         </div>
       </div>
@@ -102,12 +98,12 @@ const InstalledSuccessfully = ({
   );
 };
 
-const RequireInstallation = ({requirement}: {requirement: Requirement;}) => {
+const RequireInstallation = ({requirement}: {requirement: Requirement}) => {
   return (
     <li>
       <div className="relative pb-8">
         <div className="relative flex space-x-3">
-          <div>
+          <>
             <span className="h-8 w-8 rounded-full bg-red-500 flex items-center justify-center ring-8 ring-gray-300">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,13 +120,13 @@ const RequireInstallation = ({requirement}: {requirement: Requirement;}) => {
                 />
               </svg>
             </span>
-          </div>
+          </>
           <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-            <div>
+            <>
               <p className="text-md text-gray-500 pl-4">
                 {requirement.name} is not installed and is required.
               </p>
-            </div>
+            </>
             <div className="text-right text-sm whitespace-nowrap text-gray-500">
               Install
             </div>
@@ -141,7 +137,7 @@ const RequireInstallation = ({requirement}: {requirement: Requirement;}) => {
   );
 };
 
-const SetupElement = ({requirement}: {requirement: Requirement;}) => {
+const SetupElement = ({requirement}: {requirement: Requirement}) => {
   const {whichBinary} = useSetup();
   const {saveConfig} = useSettings();
 
