@@ -51,5 +51,6 @@ export interface Requirement {
 }
 
 export interface Config {
-  cargoPath: string;
+  cargoPath?: string;
+  npxPath?: string;
 }

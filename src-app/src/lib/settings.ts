@@ -9,7 +9,7 @@ const CONFIG_FILE_NAME = "tauri-studio.conf";
 const CONFIG_FILE_ROOT = Dir.LocalData;
 
 export const useSettings = () => {
-  const { setConfig } = useTauriContext();
+  const { setConfig, config } = useTauriContext();
 
   const initializeConfig = useCallback(async () => {
     try {
@@ -30,16 +30,19 @@ export const useSettings = () => {
   }, [setConfig]);
 
   const saveConfig = useCallback(
-    (config: Config) => {
-      // update local state
-      setConfig(config);
+    (newConfig: Partial<Config>) => {
+      if (!config) {
+        setConfig(newConfig);
+      } else {
+        setConfig({ ...config, ...newConfig });
+      }
 
       return writeFile(
         { contents: JSON.stringify(config), path: CONFIG_FILE_NAME },
         { dir: CONFIG_FILE_ROOT }
       );
     },
-    [setConfig]
+    [setConfig, config]
   );
 
   return {

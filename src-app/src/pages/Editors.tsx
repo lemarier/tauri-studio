@@ -8,7 +8,7 @@ import { useProject } from "../lib/project";
 import { useSettings } from "../lib/settings";
 
 const EditorsPage = () => {
-  const { project, setProject, addLog } = useTauriContext();
+  const { project, addLog } = useTauriContext();
   const { loadBundledProject } = useProject();
   const { initializeConfig } = useSettings();
 

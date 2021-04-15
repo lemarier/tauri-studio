@@ -12,6 +12,13 @@ const ALL_REQUIREMENTS: Requirement[] = [
     installMacos: "https://sh.rustup.rs",
     installWindows: "https://win.rustup.rs/x86_64",
   },
+  {
+    name: "npm",
+    binaryName: "npx",
+    installLinux: "https://sh.rustup.rs",
+    installMacos: "https://sh.rustup.rs",
+    installWindows: "https://win.rustup.rs/x86_64",
+  },
 ];
 
 const PendingVerification = ({ requirement }: { requirement: Requirement }) => {
@@ -148,6 +155,9 @@ const SetupElement = ({ requirement }: { requirement: Requirement }) => {
           setInstalled(true);
           if (requirement.binaryName === "cargo") {
             await saveConfig({ cargoPath: path });
+          }
+          if (requirement.binaryName === "npx") {
+            await saveConfig({ npxPath: path });
           }
         } else {
           setInstalled(false);

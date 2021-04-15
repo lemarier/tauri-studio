@@ -5,23 +5,26 @@ import { useTauriContext } from "../lib/context";
 import { AppView } from "../lib/types";
 
 const InitPage = () => {
-  const { config, setView } = useTauriContext();
+  const { config, setView, addLog } = useTauriContext();
 
   // compile our dependencies and make sure
   // we have all binary inside our config file
   const isReady = useMemo(() => {
-    if (config && config.cargoPath) {
+    console.log({ config });
+    if (config && config.cargoPath && config.npxPath) {
       return true;
     }
     return false;
   }, [config]);
 
   useEffect(() => {
-    if (isReady) {
+    if (isReady && config) {
       // switch to editors view
+      addLog(`npx: ${config.npxPath}`);
+      addLog(`cargo: ${config.cargoPath}`);
       setView(AppView.Editors);
     }
-  }, [isReady]);
+  }, [isReady, config]);
 
   return (
     <div className="flex h-screen">
