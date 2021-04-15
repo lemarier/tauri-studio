@@ -4,3 +4,6 @@ dist
 dist-ssr
 *.local
 yarn-error.log
+src-tauri/target/
+WixTools
+**/*.rs.bk

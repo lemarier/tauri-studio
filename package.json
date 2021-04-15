@@ -1,0 +1,17 @@
+{
+  "name": "tauri-builder",
+  "author": "David Lemarier <david@lemarier.ca>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "yarn --cwd=./src-app",
+    "dev-app": "yarn run --cwd=./src-app dev",
+    "dev-tauri": "tauri dev",
+    "dev": "concurrently -n d: yarn:dev-*",
+    "prebuild": "yarn run --cwd=./src-app build",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.0.0-beta-rc.1",
+    "concurrently": "^6.0.2"
+  }
+}
