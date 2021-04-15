@@ -1,5 +1,10 @@
 import {useCallback} from 'react';
-import {readTextFile, writeFile, Dir} from '@tauri-apps/api/dist/fs';
+
+import {
+  readTextFile,
+  writeFile,
+  Dir,
+} from '../../node_modules/@tauri-apps/api/dist/fs';
 
 import {Config} from './types';
 import {useTauriContext} from './context';

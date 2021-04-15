@@ -1,7 +1,11 @@
 import {useCallback, useState} from 'react';
-import {readTextFile, writeFile} from '@tauri-apps/api/dist/fs';
-import {Command, Child} from '@tauri-apps/api/dist/shell';
-import {invoke} from '@tauri-apps/api/dist/tauri';
+
+import {Command, Child} from '../../node_modules/@tauri-apps/api/dist/shell';
+import {invoke} from '../../node_modules/@tauri-apps/api/dist/tauri';
+import {
+  readTextFile,
+  writeFile,
+} from '../../node_modules/@tauri-apps/api/dist/fs';
 
 import {useTauriContext} from './context';
 import {TauriProject, ProjectState} from './types';

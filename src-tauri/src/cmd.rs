@@ -57,11 +57,8 @@ pub fn generate_project(gist: Option<String>) -> TauriProject {
 
 #[command]
 pub fn check_if_binary_is_available(binary: String) -> Option<PathBuf> {
-
     match which(binary) {
-        Ok(result) => {
-            return Some(result)
-        }
+        Ok(result) => return Some(result),
         Err(err) => {
             println!("ERRROR {:?}", err);
         }
