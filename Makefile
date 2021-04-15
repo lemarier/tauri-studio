@@ -6,7 +6,7 @@ dev:
 
 .PHONY: dev-tauri
 dev-tauri: 
-	$(NODE) $(TAURI_JS_PATH) dev
+	$(TAURI_BIN) dev
 
 .PHONY: dev-app
 dev-app: 
@@ -15,7 +15,7 @@ dev-app:
 .PHONY: build
 build:
 	cd $(APP_SRC_PATH) && yarn && yarn build
-	$(NODE) $(TAURI_JS_PATH) build
+	$(TAURI_BIN) build
 
 .PHONY: fmt
 fmt: 
