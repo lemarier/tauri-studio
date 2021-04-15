@@ -1,11 +1,12 @@
-import React from "react";
-import SplitPane from "react-split-pane";
+import React from 'react';
+import SplitPane from 'react-split-pane';
 
-import { Editor } from "../Editor";
-import { EditorValues, EditorLanguage, EditorId } from "../../lib/types";
+import {Editor} from '../Editor';
+import {EditorValues, EditorLanguage, EditorId} from '../../lib/types';
 
-const Editors = ({ editors }: { editors?: EditorValues }) => {
+const Editors = ({editors}: {editors?: EditorValues;}) => {
   // todo(lemarier): return loading state
+
   if (!editors) {
     return <></>;
   }

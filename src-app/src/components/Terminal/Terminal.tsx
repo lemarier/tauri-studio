@@ -1,17 +1,17 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, {FC, useCallback, useEffect, useRef} from 'react';
 
-import { useTauriContext } from "../../lib/context";
+import {useTauriContext} from '../../lib/context';
 
 const Terminal: FC = () => {
-  const { logs } = useTauriContext();
+  const {logs} = useTauriContext();
   const messagesEndRef: any = useRef(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scroll({
-      behavior: "smooth",
+      behavior: 'smooth',
       top: messagesEndRef.current?.scrollHeight,
     });
-  };
+  }, [messagesEndRef]);
 
   // scroll to bottom when we got a new log
   useEffect(() => {

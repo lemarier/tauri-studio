@@ -1,16 +1,17 @@
-import React, { useEffect, useMemo } from "react";
+import React, {useEffect, useMemo} from 'react';
 
-import { SetupFeed } from "../components";
-import { useTauriContext } from "../lib/context";
-import { AppView } from "../lib/types";
+import {SetupFeed} from '../components';
+import {useTauriContext} from '../lib/context';
+import {AppView} from '../lib/types';
 
 const InitPage = () => {
-  const { config, setView, addLog } = useTauriContext();
+  const {config, setView, addLog} = useTauriContext();
 
   // compile our dependencies and make sure
   // we have all binary inside our config file
   const isReady = useMemo(() => {
-    console.log({ config });
+    // eslint-disable-next-line no-console
+    console.log({config});
     if (config && config.cargoPath && config.npxPath) {
       return true;
     }
@@ -24,7 +25,7 @@ const InitPage = () => {
       addLog(`cargo: ${config.cargoPath}`);
       setView(AppView.Editors);
     }
-  }, [isReady, config]);
+  }, [isReady, config, addLog, setView]);
 
   return (
     <div className="flex h-screen">

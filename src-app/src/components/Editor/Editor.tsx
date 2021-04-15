@@ -1,8 +1,8 @@
-import React from "react";
-import MonacoEditor from "@monaco-editor/react";
+import React from 'react';
+import MonacoEditor from '@monaco-editor/react';
 
-import { EditorLanguage, EditorId } from "../../lib/types";
-import { useTauriContext } from "../../lib/context";
+import {EditorLanguage, EditorId} from '../../lib/types';
+import {useTauriContext} from '../../lib/context';
 
 const Editor = ({
   editorId,
@@ -13,7 +13,7 @@ const Editor = ({
   value: string;
   language: EditorLanguage;
 }) => {
-  const { setEditorValue } = useTauriContext();
+  const {setEditorValue} = useTauriContext();
   return (
     <div className="h-full">
       <h3 className="p-2 text-md leading-6 font-medium text-gray-500">
@@ -26,8 +26,8 @@ const Editor = ({
           keepCurrentModel={false}
           options={{
             contextmenu: false,
-            minimap: { enabled: false },
-            wordWrap: "on",
+            minimap: {enabled: false},
+            wordWrap: 'on',
           }}
           defaultValue={value}
           defaultLanguage={language}

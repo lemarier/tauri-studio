@@ -1,16 +1,15 @@
-import React, { useEffect, useMemo } from "react";
-import SplitPane from "react-split-pane";
+import React, {useEffect, useMemo} from 'react';
+import SplitPane from 'react-split-pane';
 
-import { Header, Terminal, Editors } from "../components";
-
-import { useTauriContext } from "../lib/context";
-import { useProject } from "../lib/project";
-import { useSettings } from "../lib/settings";
+import {Header, Terminal, Editors} from '../components';
+import {useTauriContext} from '../lib/context';
+import {useProject} from '../lib/project';
+import {useSettings} from '../lib/settings';
 
 const EditorsPage = () => {
-  const { project, addLog } = useTauriContext();
-  const { loadBundledProject } = useProject();
-  const { initializeConfig } = useSettings();
+  const {project, addLog} = useTauriContext();
+  const {loadBundledProject} = useProject();
+  const {initializeConfig} = useSettings();
 
   // make sure our config got initialized on first render
   // in development, we may got a quick reload and skip the index

@@ -1,15 +1,14 @@
-import { useCallback } from "react";
-// @ts-ignore
-import { readTextFile, writeFile, Dir } from "@tauri-apps/api/fs";
+import {useCallback} from 'react';
+import {readTextFile, writeFile, Dir} from '@tauri-apps/api/fs';
 
-import { Config } from "./types";
-import { useTauriContext } from "./context";
+import {Config} from './types';
+import {useTauriContext} from './context';
 
-const CONFIG_FILE_NAME = "tauri-studio.conf";
+const CONFIG_FILE_NAME = 'tauri-studio.conf';
 const CONFIG_FILE_ROOT = Dir.LocalData;
 
 export const useSettings = () => {
-  const { setConfig, config } = useTauriContext();
+  const {setConfig, config} = useTauriContext();
 
   const initializeConfig = useCallback(async () => {
     try {
@@ -22,8 +21,8 @@ export const useSettings = () => {
       // maybe the file didnt exist, lets try to
       // create it and return a blank config instance
       await writeFile(
-        { contents: "{}", path: CONFIG_FILE_NAME },
-        { dir: CONFIG_FILE_ROOT }
+        {contents: '{}', path: CONFIG_FILE_NAME},
+        {dir: CONFIG_FILE_ROOT},
       );
       setConfig({} as Config);
     }
@@ -31,18 +30,18 @@ export const useSettings = () => {
 
   const saveConfig = useCallback(
     (newConfig: Partial<Config>) => {
-      if (!config) {
-        setConfig(newConfig);
+      if (config) {
+        setConfig({...config, ...newConfig});
       } else {
-        setConfig({ ...config, ...newConfig });
+        setConfig(newConfig);
       }
 
       return writeFile(
-        { contents: JSON.stringify(config), path: CONFIG_FILE_NAME },
-        { dir: CONFIG_FILE_ROOT }
+        {contents: JSON.stringify(config), path: CONFIG_FILE_NAME},
+        {dir: CONFIG_FILE_ROOT},
       );
     },
-    [setConfig, config]
+    [setConfig, config],
   );
 
   return {

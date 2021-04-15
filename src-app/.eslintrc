@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "plugin:@shopify/esnext",
+    "plugin:@shopify/react",
+    "plugin:@shopify/typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "root": true,
+  "ignorePatterns": ["dist/**", "node_modules"],
+  "rules": {
+    "no-warning-comments": ["off"],
+    "@typescript-eslint/member-delimiter-style": ["warn"]
+  }
+}

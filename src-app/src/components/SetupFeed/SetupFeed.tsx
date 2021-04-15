@@ -1,27 +1,27 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, {FC, useEffect, useMemo, useState} from 'react';
 
-import { Requirement } from "../../lib/types";
-import { useSetup } from "../../lib/setup";
-import { useSettings } from "../../lib/settings";
+import {Requirement} from '../../lib/types';
+import {useSetup} from '../../lib/setup';
+import {useSettings} from '../../lib/settings';
 
 const ALL_REQUIREMENTS: Requirement[] = [
   {
-    name: "Rust",
-    binaryName: "cargo",
-    installLinux: "https://sh.rustup.rs",
-    installMacos: "https://sh.rustup.rs",
-    installWindows: "https://win.rustup.rs/x86_64",
+    name: 'Rust',
+    binaryName: 'cargo',
+    installLinux: 'https://sh.rustup.rs',
+    installMacos: 'https://sh.rustup.rs',
+    installWindows: 'https://win.rustup.rs/x86_64',
   },
   {
-    name: "npm",
-    binaryName: "npx",
-    installLinux: "https://sh.rustup.rs",
-    installMacos: "https://sh.rustup.rs",
-    installWindows: "https://win.rustup.rs/x86_64",
+    name: 'npm',
+    binaryName: 'npx',
+    installLinux: 'https://sh.rustup.rs',
+    installMacos: 'https://sh.rustup.rs',
+    installWindows: 'https://win.rustup.rs/x86_64',
   },
 ];
 
-const PendingVerification = ({ requirement }: { requirement: Requirement }) => {
+const PendingVerification = ({requirement}: {requirement: Requirement;}) => {
   return (
     <li>
       <div className="relative pb-8">
@@ -102,7 +102,7 @@ const InstalledSuccessfully = ({
   );
 };
 
-const RequireInstallation = ({ requirement }: { requirement: Requirement }) => {
+const RequireInstallation = ({requirement}: {requirement: Requirement;}) => {
   return (
     <li>
       <div className="relative pb-8">
@@ -141,9 +141,9 @@ const RequireInstallation = ({ requirement }: { requirement: Requirement }) => {
   );
 };
 
-const SetupElement = ({ requirement }: { requirement: Requirement }) => {
-  const { whichBinary } = useSetup();
-  const { saveConfig } = useSettings();
+const SetupElement = ({requirement}: {requirement: Requirement;}) => {
+  const {whichBinary} = useSetup();
+  const {saveConfig} = useSettings();
 
   const [installed, setInstalled] = useState<undefined | boolean>(undefined);
 
@@ -153,18 +153,18 @@ const SetupElement = ({ requirement }: { requirement: Requirement }) => {
         const path = await whichBinary(requirement.binaryName);
         if (path) {
           setInstalled(true);
-          if (requirement.binaryName === "cargo") {
-            await saveConfig({ cargoPath: path });
+          if (requirement.binaryName === 'cargo') {
+            await saveConfig({cargoPath: path});
           }
-          if (requirement.binaryName === "npx") {
-            await saveConfig({ npxPath: path });
+          if (requirement.binaryName === 'npx') {
+            await saveConfig({npxPath: path});
           }
         } else {
           setInstalled(false);
         }
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.log({ error });
+        console.log({error});
         setInstalled(false);
       }
     };

@@ -1,13 +1,10 @@
-import { useCallback, useState } from "react";
-// @ts-ignore
-import { invoke } from "@tauri-apps/api/tauri";
-// @ts-ignore
-import { readTextFile, writeFile } from "@tauri-apps/api/fs";
-// @ts-ignore
-import { Command, Child } from "@tauri-apps/api/shell";
+import {useCallback, useState} from 'react';
+import {invoke} from '@tauri-apps/api/tauri';
+import {readTextFile, writeFile} from '@tauri-apps/api/fs';
+import {Command, Child} from '@tauri-apps/api/shell';
 
-import { useTauriContext } from "./context";
-import { TauriProject, ProjectState } from "./types";
+import {useTauriContext} from './context';
+import {TauriProject, ProjectState} from './types';
 
 export const useProject = () => {
   const [child, setChild] = useState<Child | undefined>();
@@ -37,14 +34,14 @@ export const useProject = () => {
   }, [project]);
 
   const loadBundledProject = useCallback(async () => {
-    const project = await invoke<TauriProject>("generate_project");
+    const project = await invoke<TauriProject>('generate_project');
     const html = await readTextFile(project.mainHtmlFile);
     const rust = await readTextFile(project.mainTauriFile);
 
     const finalProject = {
       ...project,
       state: ProjectState.Ready,
-      editors: { html, rust },
+      editors: {html, rust},
     };
 
     setProject(finalProject);
@@ -53,38 +50,38 @@ export const useProject = () => {
 
   const run = useCallback(() => {
     return new Promise<void>((resolve, reject) => {
-      if (!config || !project) {
+      if (!config?.cargoPath || !project) {
         return;
       }
 
-      addLog("Running project");
+      addLog('Running project');
 
       // mark the project as running
       setProjectState(ProjectState.Running);
 
       const command = new Command(config.cargoPath, [
-        "run",
-        "--manifest-path",
+        'run',
+        '--manifest-path',
         project.mainCargoFile,
       ]);
 
-      command.on("close", () => {
-        addLog("App closed");
+      command.on('close', () => {
+        addLog('App closed');
         setProjectState(ProjectState.Ready);
         return resolve();
       });
 
-      command.on("error", (error: Error) => {
+      command.on('error', (error: Error) => {
         addLog(error.toString());
         setProjectState(ProjectState.Ready);
         return reject();
       });
 
-      command.stdout.on("data", (line: string) => {
+      command.stdout.on('data', (line: string) => {
         addLog(line);
       });
 
-      command.stderr.on("data", (line: string) => {
+      command.stderr.on('data', (line: string) => {
         addLog(line);
       });
 
@@ -101,44 +98,44 @@ export const useProject = () => {
 
   const build = useCallback(() => {
     return new Promise<void>((resolve, reject) => {
-      if (!config || !project) {
+      if (!config?.cargoPath || !project) {
         return;
       }
 
-      addLog("Building project");
+      addLog('Building project');
 
       // mark the project as running
       setProjectState(ProjectState.Building);
 
       const command = new Command(config.cargoPath, [
-        "build",
-        "--manifest-path",
+        'build',
+        '--manifest-path',
         project.mainCargoFile,
       ]);
 
-      command.on("close", ({ signal = 0 }: { signal: Number }) => {
+      command.on('close', ({signal = 0}: {signal: number;}) => {
         setProjectState(ProjectState.Ready);
 
         // SIGKILL
         // closed manually
         if (signal === 9) {
-          return reject("Build cancelled");
+          return reject(new Error('Build cancelled'));
         }
 
         return resolve();
       });
 
-      command.on("error", (error: Error) => {
+      command.on('error', (error: Error) => {
         addLog(error.toString());
         setProjectState(ProjectState.Ready);
         return reject();
       });
 
-      command.stdout.on("data", (line: string) => {
+      command.stdout.on('data', (line: string) => {
         addLog(line);
       });
 
-      command.stderr.on("data", (line: string) => {
+      command.stderr.on('data', (line: string) => {
         addLog(line);
       });
 

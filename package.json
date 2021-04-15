@@ -8,7 +8,9 @@
     "dev-tauri": "tauri dev",
     "dev": "concurrently -n d: yarn:dev-*",
     "prebuild": "yarn run --cwd=./src-app build",
-    "build": "tauri build"
+    "build": "tauri build",
+    "prelint": "yarn run --cwd=./src-app lint",
+    "lint": "cargo fmt --all --manifest-path=./src-tauri/Cargo.toml"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.0.0-beta-rc.1",

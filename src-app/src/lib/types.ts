@@ -1,4 +1,4 @@
-export type EditorId = "rust" | "html";
+export type EditorId = 'rust' | 'html';
 
 // for now let show only 2 editor
 // to keep it simple we can change this easilly later
@@ -8,27 +8,27 @@ export interface EditorValues {
 }
 
 export enum AppView {
-  Init = "initializing",
-  Editors = "editors",
+  Init = 'initializing',
+  Editors = 'editors',
 }
 
 export enum ProjectState {
   // newly created
-  Pending = "pending",
+  Pending = 'pending',
   // cargo build
-  Building = "building",
+  Building = 'building',
   // ready to be run
-  Ready = "ready",
+  Ready = 'ready',
   // already running
-  Running = "running",
+  Running = 'running',
   // exporting
-  Exporting = "exporting",
+  Exporting = 'exporting',
 }
 
 export enum EditorLanguage {
-  Rust = "rust",
-  Javascript = "javascript",
-  Html = "html",
+  Rust = 'rust',
+  Javascript = 'javascript',
+  Html = 'html',
 }
 
 export interface TauriProject {

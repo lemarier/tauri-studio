@@ -1,12 +1,12 @@
-import React, { FC, useMemo } from "react";
+import React, {FC, useMemo} from 'react';
 
-import { useProject } from "../../lib/project";
-import { useTauriContext } from "../../lib/context";
-import { ProjectState } from "../../lib/types";
+import {useProject} from '../../lib/project';
+import {useTauriContext} from '../../lib/context';
+import {ProjectState} from '../../lib/types';
 
 const Header: FC = () => {
-  const { project, addLog } = useTauriContext();
-  const { build, run, stop, saveEditorValuesOnDisk } = useProject();
+  const {project, addLog} = useTauriContext();
+  const {build, run, stop, saveEditorValuesOnDisk} = useProject();
 
   const buttonMarkup = useMemo(() => {
     if (!project?.state) {
@@ -126,7 +126,7 @@ const Header: FC = () => {
       default:
         return <>Wait...</>;
     }
-  }, [run, project?.state, addLog, stop]);
+  }, [run, project?.state, addLog, stop, build, saveEditorValuesOnDisk]);
 
   return (
     <div className="relative z-10 flex-shrink-0 flex h-12 p-2 border-b border-gray-700">
