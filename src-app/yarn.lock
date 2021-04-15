@@ -257,9 +257,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@tauri-apps/api@link:../../../../..":
-  version "0.0.0"
-  uid ""
+"@tauri-apps/api@^1.0.0-beta-rc.1":
+  version "1.0.0-beta-rc.1"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.0.0-beta-rc.1.tgz#86fa747a44b301e3c2bd25ffc76d51b01a95ba3a"
+  integrity sha512-GcGTIv1k0LlMqDzGiovQifBjt4NXlUVXZbTfNJV22gqaaIsj11aP/J/m6e34j+b10OYFo/1MpPro+jVnlVz7wQ==
 
 "@types/node@^14.14.37":
   version "14.14.37"
