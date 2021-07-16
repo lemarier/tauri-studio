@@ -1,7 +1,6 @@
 import {useCallback, useState} from 'react';
-
 import {Command, Child} from '@tauri-apps/api/shell';
-import {invoke,} from '@tauri-apps/api';
+import {invoke} from '@tauri-apps/api/tauri';
 import {
   readTextFile,
   writeFile,

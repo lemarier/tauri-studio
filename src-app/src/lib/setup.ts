@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
-
-import {invoke} from '@tauri-apps/api';
+// @ts-nocheck
+import {invoke} from '@tauri-apps/api/tauri';
 
 export const useSetup = () => {
   const whichBinary = useCallback(async (binary: string) => {

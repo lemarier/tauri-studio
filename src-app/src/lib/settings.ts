@@ -1,5 +1,5 @@
 import {useCallback} from 'react';
-
+// @ts-nocheck
 import {
   readTextFile,
   writeFile,
