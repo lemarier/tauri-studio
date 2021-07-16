@@ -5,14 +5,14 @@ description = "A very simple Tauri Editor built with Tauri."
 edition = "2018"
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-beta-rc.0", features = [ "codegen" ]}
+tauri-build = { version = "1.0.0-beta.3", features = [ "codegen" ] }
 
 [dependencies]
 tempdir = "0.3"
 include_dir = "0.6.0"
 serde_json = "1.0"
 serde = { version = "1.0", features = [ "derive" ] }
-tauri = { version = "1.0.0-beta-rc.0", features =["api-all"]}
+tauri = { version = "1.0.0-beta.5", features = ["api-all"] }
 glob = "0.3.0"
 which = "4.1.0"
 

@@ -4,7 +4,7 @@ import {
   readTextFile,
   writeFile,
   Dir,
-} from '../../node_modules/@tauri-apps/api/dist/fs';
+} from '@tauri-apps/api/fs';
 
 import {Config} from './types';
 import {useTauriContext} from './context';

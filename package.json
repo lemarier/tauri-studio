@@ -13,7 +13,7 @@
     "lint": "cargo fmt --all --manifest-path=./src-tauri/Cargo.toml"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta-rc.1",
+    "@tauri-apps/cli": "^1.0.0-beta.6",
     "concurrently": "^6.0.2"
   }
 }
